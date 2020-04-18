@@ -1,7 +1,7 @@
 {
   "name": "mazerunner",
   "version": "1.0.0",
-  "description": "a simple maze solver",
+  "description": "A simple maze solver implementing DFS Algorithm",
   "main": "MazeRunner.js",
   "scripts": {
     "start": "node MazeRunner.js"

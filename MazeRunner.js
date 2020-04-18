@@ -1,30 +1,30 @@
 const [visit, explore, printResult] = require("./Helpers");
 
-//#region shared memory - we use these variables as global memory for the algorithm
+//#region Shared Memory - we use these variables as global memory for the algorithm
 //The maze currently being worked on, (this will mutate state)
 let workingMaze = [];
 
-//This is an array that we will use like a stack for the DFS (only push and pop ops allowed)
+//This is an array that we will use like a stack for the DFS (only push and pop operations)
 let mazePathStack = [];
 //#endregion
 
 //Depth First Search
 const dfs = () => {
-  //No paths out of the maze, we exhaustead all possible paths
+  //The stack is empty
+  //No way out of the maze, we exhausted all possible paths 
   if (mazePathStack.length === 0) {
     return 0;
   }
 
-  //get the current location from the stack, and check if we are done
+  //Get the current location point from the stack, and check if we are in the last row
   let currentLocation = mazePathStack[mazePathStack.length - 1];
   if (currentLocation[0] == workingMaze.length - 1) {
     return mazePathStack;
   }
 
-  //continue the traversal
+  //Continue the traversal
   let pathsArray = explore(currentLocation, workingMaze);
-  //if there are no paths, mark the current location and
-  //pop it off the stack
+  //if there are no paths, mark the current location and pop it off the stack
   if (pathsArray.length === 0) {
     workingMaze[currentLocation[0]][currentLocation[1]] = 1;
     mazePathStack.pop();
@@ -38,7 +38,7 @@ const dfs = () => {
     );
   }
 
-  //and again...
+  //And go again...
   return dfs();
 };
 
@@ -58,17 +58,17 @@ const dfs = () => {
     [1, 1, 1, 1, 0, 1],
   ];
 
-  //value copy the constant inputMaze into workingMaze
+  //value copy the constant inputMaze into the mutable workingMaze
   for (var i = 0, len = inputMaze.length; i < len; i++) {
     workingMaze[i] = inputMaze[i].slice();
-}
+  }
 
   // Step 2
-  //We initialize the mazePathStack with the entry coordinate:[row, column] of the inputMaze
-  mazePathStack.push([0, 1]);
+  //We initialize the mazePathStack with the entry point coordinate:[row, column] of the maze
+  mazePathStack.push([0, workingMaze[0].indexOf(0)]);
+  console.log("Starting point: " + mazePathStack[0]);
 
   // Step 3 - run the algorithm
-  //DFS
   let dfsResult = dfs();
   printResult(dfsResult, "Depth First Search", inputMaze);
 })();
