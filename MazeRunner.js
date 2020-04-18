@@ -6,13 +6,9 @@ let workingMaze = [];
 
 //This is an array that we will use like a stack for the DFS (only push and pop ops allowed)
 let mazePathStack = [];
-
-//The que for the BFS algorithm
-let mazePathQue = [];
-
 //#endregion
 
-//Depth first search
+//Depth First Search
 const dfs = () => {
   //No paths out of the maze, we exhaustead all possible paths
   if (mazePathStack.length === 0) {
@@ -62,7 +58,7 @@ const dfs = () => {
     [1, 1, 1, 1, 0, 1],
   ];
 
-  //value copy the constatn inputMaze into the workingMaze
+  //value copy the constant inputMaze into workingMaze
   for (var i = 0, len = inputMaze.length; i < len; i++) {
     workingMaze[i] = inputMaze[i].slice();
 }
@@ -72,7 +68,7 @@ const dfs = () => {
   mazePathStack.push([0, 1]);
 
   // Step 3 - run the algorithm
-  //Default DFS
+  //DFS
   let dfsResult = dfs();
   printResult(dfsResult, "Depth First Search", inputMaze);
 })();
