@@ -12,6 +12,40 @@ let mazePathQue = [];
 
 //#endregion
 
+//Depth first search
+const dfs = () => {
+  //No paths out of the maze, we exhaustead all possible paths
+  if (mazePathStack.length === 0) {
+    return 0;
+  }
+
+  //get the current location from the stack, and check if we are done
+  let currentLocation = mazePathStack[mazePathStack.length - 1];
+  if (currentLocation[0] == workingMaze.length - 1) {
+    return mazePathStack;
+  }
+
+  //continue the traversal
+  let pathsArray = explore(currentLocation, workingMaze);
+  //if there are no paths, mark the current location and
+  //pop it off the stack
+  if (pathsArray.length === 0) {
+    workingMaze[currentLocation[0]][currentLocation[1]] = 1;
+    mazePathStack.pop();
+  } else {
+    [workingMaze, mazePathStack] = visit(
+      currentLocation,
+      pathsArray,
+      workingMaze,
+      mazePathStack
+    );
+  }
+  console.log(mazePathStack);
+  //console.log(workingMaze);
+  //and again...
+  dfs();
+};
+
 //Start Here!
 (() => {
   // Step 1
@@ -34,13 +68,5 @@ let mazePathQue = [];
   //We initialize the mazePathStack with the entry coordinate:[row, column] of the inputMaze
   mazePathStack.push([0, 1]);
 
-  [workingMaze, mazePathStack] = visit(
-    [0, 1],
-    [[1, 1]],
-    workingMaze,
-    mazePathStack
-  );
-  console.log(workingMaze);
-  console.log(mazePathStack);
-  //console.log(explore([0, 1], workingMaze));
+  dfs();
 })();

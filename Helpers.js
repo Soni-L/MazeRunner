@@ -38,7 +38,7 @@ const visit = (currentCoordinate, coordinatePathsArray, workingMaze, mazePathSta
   [currentRow, currentCol] = currentCoordinate;
   workingMaze[currentRow][currentCol] = 1;
 
-  //move to the next
+  //move to the next coordinate
   if (coordinatePathsArray.length >= 1) {
     [nextRow, nextCol] = coordinatePathsArray[0];
     mazePathStack.push([nextRow, nextCol]);
