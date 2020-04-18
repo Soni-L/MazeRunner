@@ -24,7 +24,7 @@ const dfs = () => {
 
   //Continue the traversal
   let pathsArray = explore(currentLocation, workingMaze);
-  //if there are no paths, mark the current location and pop it off the stack
+  //if there are no paths, mark the current location and pop it off the stack (BACKTRACK!)
   if (pathsArray.length === 0) {
     workingMaze[currentLocation[0]][currentLocation[1]] = 1;
     mazePathStack.pop();
@@ -52,10 +52,10 @@ const dfs = () => {
   const inputMaze = [
     [1, 0, 1, 1, 1, 1],
     [0, 0, 0, 0, 1, 1],
-    [1, 1, 0, 1, 1, 1],
-    [1, 0, 0, 1, 1, 1],
-    [1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0],
+    [1, 0, 1, 1, 1, 0],
+    [1, 1, 1, 0, 0, 0],
+    [1, 1, 1, 0, 1, 1],
   ];
 
   //value copy the constant inputMaze into the mutable workingMaze
