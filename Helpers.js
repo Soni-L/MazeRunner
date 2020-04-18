@@ -51,14 +51,25 @@ const visit = (
   return [workingMaze, mazePathStack];
 };
 
-const printResult = (result, algorithm) => {
+const printResult = (result, algorithm, inputMaze) => {
   console.log(`Algorithm Used: ${algorithm}`);
 
   if (result === 0) {
     console.log("There are no paths through this maze!");
   } else {
-    console.log("Path coordinates");
-    console.log(result);
+    result.forEach((element) => {
+      inputMaze[element[0]][element[1]] = "*";
+    });
+    console.log("Solved Maze: ");
+    console.table(inputMaze);
+    console.log("Path coordinates: ");
+    let json = result.map(function (x) {
+      return {
+        row: x[0],
+        column: x[1],
+      };
+    });
+    console.table(json);
   }
 };
 

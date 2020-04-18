@@ -61,8 +61,11 @@ const dfs = () => {
     [1, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 0, 1],
   ];
-  //workingMaze init
-  workingMaze = [...inputMaze];
+
+  //value copy the constatn inputMaze into the workingMaze
+  for (var i = 0, len = inputMaze.length; i < len; i++) {
+    workingMaze[i] = inputMaze[i].slice();
+}
 
   // Step 2
   //We initialize the mazePathStack with the entry coordinate:[row, column] of the inputMaze
@@ -71,7 +74,5 @@ const dfs = () => {
   // Step 3 - run the algorithm
   //Default DFS
   let dfsResult = dfs();
-  printResult(dfsResult, "Depth First Search");
-  console.log(inputMaze);
-
+  printResult(dfsResult, "Depth First Search", inputMaze);
 })();
