@@ -28,12 +28,16 @@ const explore = (coordinates, workingMaze) => {
   return pathsFowardArray;
 };
 
-
 //1) receives the current coordinate and an array of all possible moves
 //2) visits the next coordinate in the array, if there is one, marks the current coordinate with a (1)
 //   as visited and pushes the next coordinate on the stack to be explored
 //-if there are several possible paths, the visitation is done in clockwise order -> down, left, up, right
-const visit = (currentCoordinate, coordinatePathsArray, workingMaze, mazePathStack) => {
+const visit = (
+  currentCoordinate,
+  coordinatePathsArray,
+  workingMaze,
+  mazePathStack
+) => {
   //mark current coordinate
   [currentRow, currentCol] = currentCoordinate;
   workingMaze[currentRow][currentCol] = 1;
@@ -44,7 +48,18 @@ const visit = (currentCoordinate, coordinatePathsArray, workingMaze, mazePathSta
     mazePathStack.push([nextRow, nextCol]);
   }
 
-  return[workingMaze, mazePathStack];
+  return [workingMaze, mazePathStack];
 };
 
-module.exports = [visit, explore];
+const printResult = (result, algorithm) => {
+  console.log(`Algorithm Used: ${algorithm}`);
+
+  if (result === 0) {
+    console.log("There are no paths through this maze!");
+  } else {
+    console.log("Path coordinates");
+    console.log(result);
+  }
+};
+
+module.exports = [visit, explore, printResult];

@@ -1,4 +1,4 @@
-const [visit, explore] = require("./Helpers");
+const [visit, explore, printResult] = require("./Helpers");
 
 //#region shared memory - we use these variables as global memory for the algorithm
 //The maze currently being worked on, (this will mutate state)
@@ -33,6 +33,7 @@ const dfs = () => {
     workingMaze[currentLocation[0]][currentLocation[1]] = 1;
     mazePathStack.pop();
   } else {
+    //visit the next point, update the stack and workingmaze
     [workingMaze, mazePathStack] = visit(
       currentLocation,
       pathsArray,
@@ -40,10 +41,9 @@ const dfs = () => {
       mazePathStack
     );
   }
-  console.log(mazePathStack);
-  //console.log(workingMaze);
+
   //and again...
-  dfs();
+  return dfs();
 };
 
 //Start Here!
@@ -62,11 +62,16 @@ const dfs = () => {
     [1, 1, 1, 1, 0, 1],
   ];
   //workingMaze init
-  workingMaze = inputMaze;
+  workingMaze = [...inputMaze];
 
   // Step 2
   //We initialize the mazePathStack with the entry coordinate:[row, column] of the inputMaze
   mazePathStack.push([0, 1]);
 
-  dfs();
+  // Step 3 - run the algorithm
+  //Default DFS
+  let dfsResult = dfs();
+  printResult(dfsResult, "Depth First Search");
+  console.log(inputMaze);
+
 })();
