@@ -1,6 +1,6 @@
-//Receives params: [row, col] of a maze coordinate
-//Explores the possible paths to move forward from that point -> down, left, up, right (NOT diagonal!)
-//Returns an array of all free paths forward: [[row, colon], [row, colon], ...]
+//1) Receives params: [row, col] of a maze coordinate
+//2) Explores the possible paths to move forward from that point -> down, left, up, right (NOT diagonal!)
+//3) Returns an array of all free paths forward: [[row, colon], [row, colon], ...]
 const explore = (coordinates, workingMaze) => {
   let [row, col] = coordinates;
   let pathsFowardArray = [];
@@ -28,21 +28,21 @@ const explore = (coordinates, workingMaze) => {
   return pathsFowardArray;
 };
 
-//1) Receives the current coordinate and an array of all possible moves
-//2) visits the next coordinate in the array, if there is one, marks the current coordinate with a (1)
-//   as visited and pushes the next coordinate on the stack to be explored
-//3) If there are several possible paths, the visitation is done in clockwise order -> down, left, up, right
+//1) Receives the currentCoordinate (the top element in the stack) and an array of all possible paths forward as params.
+//2) Marks the current coordinate as visited.
+//3) Visits the next coordinate in the array (if there is one) and pushes it to the stack. 
+//4) If there are several possible paths, the visitation is done in clockwise order -> down, left, up, right
 const visit = (
   currentCoordinate,
   coordinatePathsArray,
   workingMaze,
   mazePathStack
 ) => {
-  //Mark current point coordinate with a (1)
+  //Mark current point coordinate with as visited
   [currentRow, currentCol] = currentCoordinate;
   workingMaze[currentRow][currentCol] = 1;
 
-  //Move to the next point coordinate
+  //Move to the next point coordinate, push it to the stack
   if (coordinatePathsArray.length >= 1) {
     [nextRow, nextCol] = coordinatePathsArray[0];
     mazePathStack.push([nextRow, nextCol]);
@@ -51,6 +51,7 @@ const visit = (
   return [workingMaze, mazePathStack];
 };
 
+//A helper function to log the results of the algorithm to the console
 const printResult = (result, algorithm, inputMaze) => {
   console.log(`Algorithm Used: ${algorithm}`);
 
